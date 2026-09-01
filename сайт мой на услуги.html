@@ -276,10 +276,10 @@
         <text x="752" y="297" fill="#D8382B">19</text>
       </g>
       <g font-family="'JetBrains Mono',monospace" font-size="12" fill="#D8382B">
-        <text x="170" y="79">&#8627; &#8722;32 &#183; оффер не читается за 3 секунды</text>
-        <text x="170" y="141">&#8627; &#8722;26 &#183; перегруз, суть закопана вниз</text>
-        <text x="170" y="203">&#8627; &#8722;15 &#183; нет доказательств — не верят</text>
-        <text x="170" y="265">&#8627; &#8722;8 &#183; сложная форма, нет next step</text>
+        <text x="170" y="79">&#8627; &#8727;32 &#183; оффер не читается за 3 секунды</text>
+        <text x="170" y="141">&#8627; &#8727;26 &#183; перегруз, суть закопана вниз</text>
+        <text x="170" y="203">&#8627; &#8727;15 &#183; нет доказательств — не верят</text>
+        <text x="170" y="265">&#8627; &#8727;8 &#183; сложная форма, нет next step</text>
       </g>
     </svg>
     <figcaption>Цифры иллюстративные — на вашем сайте картина считается в аудите.</figcaption>
@@ -443,7 +443,7 @@
     <ul>
       <li><b>DreamNuts.ru</b> — аудит food-ecommerce: нет оффера и доверия, «безликий товар». Предложена структура выбора «для чего вам орехи» и путь от интереса к покупке.</li>
       <li><b>«Полезнямки»</b> — маркетинговая стратегия VK + CRM для бренда полезных сладостей: воронка, система офферов, продукт входа, ROMI/KPI и roadmap на 12 месяцев.</li>
-      <li><b>Сеть доставки суши и пиццы, Мурманск</b> — операционный маркетинг-шаблон на 4 бренда: стратегия, ТЗ по стилю и соцсетям, контент-календарь, KPI — под перенос в Битрикс24.</li>
+      <li>Сеть доставки суши и пиццы, Мурманск — операционный маркетинг-шаблон на 4 бренда: стратегия, ТЗ по стилю и соцсетям, контент-календарь, KPI — под перенос в Битрикс24.</li>
     </ul>
   </div>
 </div></section>
@@ -480,7 +480,7 @@
   // one orchestrated reveal for the hero specimen
   var sp = document.getElementById('specimen');
   if (sp) {
-    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches()) {
       var io = new IntersectionObserver(function(en){
         en.forEach(function(e){ if(e.isIntersecting){ sp.classList.add('revealed'); io.disconnect(); }});
       }, {threshold:.4});
