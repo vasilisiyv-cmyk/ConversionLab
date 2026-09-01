@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит и проектирование сайтов под заявки — портфолио</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F1;
+    --panel:#E4E8EA;
+    --ink:#14171A;
+    --ink-soft:#565E64;
+    --mark:#D8382B;
+    --mark-soft:rgba(216,56,43,.12);
+    --line:#C6CCCE;
+    --dot:rgba(20,23,26,.05);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(var(--dot) 1px,transparent 1.4px);
+    background-size:24px 24px;background-position:-2px -2px;
+    font-family:"Newsreader",Georgia,serif;
+    font-size:19px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.grotesk{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+  a{color:inherit}
+  ::selection{background:var(--mark);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* ---- top meta bar ---- */
+  .topbar{border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;
+    padding-top:16px;padding-bottom:16px;font-family:"JetBrains Mono",monospace;
+    font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
+  .topbar b{color:var(--ink);font-weight:500}
+
+  /* ---- hero ---- */
+  header{padding:70px 0 40px}
+  .role{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--mark);
+    letter-spacing:.06em;margin:0 0 22px}
+  h1{font-size:clamp(38px,6.4vw,72px);line-height:1.02;font-weight:800;
+    letter-spacing:-.02em;margin:0 0 26px;max-width:16ch}
+  .lede{font-size:clamp(19px,2.4vw,23px);max-width:46ch;color:var(--ink);margin:0 0 40px}
+  .lede em{font-style:italic;color:var(--mark)}
+
+  /* ---- signature: annotated copy ---- */
+  .specimen{
+    background:var(--panel);border:1px solid var(--line);
+    padding:34px 30px 30px;max-width:720px;position:relative;
+  }
+  .specimen .cap{font-family:"JetBrains Mono",monospace;font-size:11.5px;
+    letter-spacing:.08em;color:var(--ink-soft);margin:0 0 20px;text-transform:none}
+  .specimen .quote{font-size:clamp(21px,3vw,29px);line-height:1.45;font-weight:400;
+    font-family:"Newsreader",serif}
+  .u-strike{position:relative;white-space:nowrap}
+  .u-strike::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;
+    background:var(--mark);transform:scaleX(var(--sx,1));transform-origin:left;border-radius:2px}
+  .u-circle{position:relative;padding:0 3px}
+  .u-circle svg{position:absolute;left:-8px;top:-8px;width:calc(100% + 16px);height:calc(100% + 16px);
+    overflow:visible;pointer-events:none}
+  .u-circle svg path{fill:none;stroke:var(--mark);stroke-width:2.2;stroke-linecap:round;
+    stroke-dasharray:var(--len,320);stroke-dashoffset:var(--off,0)}
+  .notes{list-style:none;margin:26px 0 0;padding:22px 0 0;border-top:1px dashed var(--line)}
+  .notes li{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.5;
+    color:var(--mark);margin:0 0 10px;padding-left:20px;position:relative}
+  .notes li::before{content:"↳";position:absolute;left:0;color:var(--mark)}
+  .notes li span{color:var(--ink-soft)}
+
+  /* reveal animation (one moment, reduced-motion safe) */
+  @media (prefers-reduced-motion:no-preference){
+    .u-strike::after{transform:scaleX(0);transition:transform .6s ease .5s}
+    .u-circle svg path{stroke-dashoffset:var(--len,320);transition:stroke-dashoffset .9s ease .9s}
+    .notes li{opacity:0;transform:translateY(4px);transition:opacity .5s ease,transform .5s ease}
+    .revealed .u-strike::after{transform:scaleX(1)}
+    .revealed .u-circle svg path{stroke-dashoffset:0}
+    .revealed .notes li{opacity:1;transform:none}
+    .revealed .notes li:nth-child(2){transition-delay:1.2s}
+    .revealed .notes li:nth-child(3){transition-delay:1.4s}
+    .revealed .notes li:nth-child(1){transition-delay:1.0s}
+  }
+
+  /* ---- section frame ---- */
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mark);
+    letter-spacing:.05em;margin:0 0 12px}
+  h2{font-size:clamp(26px,3.6vw,38px);line-height:1.08;font-weight:800;
+    letter-spacing:-.015em;margin:0 0 8px;max-width:20ch}
+  .sec-sub{color:var(--ink-soft);max-width:52ch;margin:0 0 42px;font-size:17px}
+
+  /* ---- services ---- */
+  .svc{display:grid;grid-template-columns:44px 1fr;gap:0 22px;
+    padding:26px 0;border-top:1px solid var(--line)}
+  .svc:first-of-type{border-top:none}
+  .svc .no{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--mark);
+    padding-top:6px}
+  .svc h3{font-size:22px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+  .svc p{margin:0 0 14px;color:var(--ink);font-size:17.5px;max-width:60ch}
+  .svc ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px 8px}
+  .svc li{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--panel)}
+
+  /* ---- method (real sequence -> numbers justified) ---- */
+  .steps{counter-reset:s;display:grid;gap:2px}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:22px;align-items:baseline;
+    padding:22px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:none}
+  .step .n{counter-increment:s;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:30px;color:var(--mark);line-height:1}
+  .step .n::before{content:counter(s,decimal-leading-zero)}
+  .step h3{font-size:20px;font-weight:600;margin:0 0 6px}
+  .step p{margin:0;color:var(--ink-soft);font-size:16.5px;max-width:58ch}
+
+  /* ---- teardown / specimen work ---- */
+  .flag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11.5px;
+    color:var(--mark);border:1px solid var(--mark);border-radius:4px;padding:3px 9px;margin:0 0 20px}
+  .tear{background:var(--panel);border:1px solid var(--line);padding:30px 28px;max-width:760px}
+  .tear .site{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-soft);
+    margin:0 0 18px}
+  .tear .claim{font-size:20px;line-height:1.5;margin:0 0 4px;padding-left:16px;
+    border-left:3px solid var(--mark)}
+  .tear .find{color:var(--ink-soft);font-size:16.5px;margin:6px 0 24px;padding-left:16px}
+  .tear .fix{font-size:16.5px;margin:0;padding:16px 0 0;border-top:1px dashed var(--line)}
+  .tear .fix b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;color:var(--mark)}
+
+  .slots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  .slot{border:1.5px dashed var(--line);border-radius:6px;padding:22px 20px;color:var(--ink-soft);
+    font-size:15px;background:transparent}
+  .slot .lbl{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--mark);
+    margin:0 0 8px}
+
+  /* real cases */
+  .case{border-top:1px solid var(--line);padding:30px 0;display:grid;
+    grid-template-columns:44px 1fr;gap:0 22px}
+  .case:first-of-type{border-top:none}
+  .case .no{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--mark);padding-top:7px}
+  .case h3{font-size:23px;font-weight:600;margin:0 0 5px;letter-spacing:-.01em}
+  .case .meta{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-soft);
+    margin:0 0 16px;line-height:1.5}
+  .case .lead{margin:0 0 14px;font-size:17.5px;max-width:62ch}
+  .case .lead b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600}
+  .case .found{list-style:none;margin:0 0 18px;padding:0;max-width:64ch}
+  .case .found li{position:relative;padding:0 0 9px 22px;font-size:16.5px;color:var(--ink)}
+  .case .found li::before{content:"—";position:absolute;left:0;color:var(--mark)}
+  .case .fmt{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11.5px;
+    color:var(--ink-soft);border:1px solid var(--line);border-radius:4px;padding:3px 10px;background:var(--panel)}
+  .also{margin-top:8px;padding-top:26px;border-top:1px dashed var(--line)}
+  .also .h{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:15px;
+    margin:0 0 16px;color:var(--ink)}
+  .also ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+  .also li{font-size:16px;color:var(--ink-soft);padding-left:18px;position:relative;max-width:72ch}
+  .also li::before{content:"·";position:absolute;left:3px;color:var(--mark);font-weight:700}
+  .also li b{color:var(--ink);font-family:"Bricolage Grotesque",sans-serif;font-weight:600}
+  @media (max-width:680px){.case{grid-template-columns:1fr;gap:8px}.case .no{padding:0}}
+
+  /* ---- about ---- */
+  .about p{max-width:60ch;font-size:18px;margin:0 0 18px}
+  .about .facts{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:0}
+  .about .facts li{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:14px 0;
+    border-top:1px solid var(--line);font-size:16.5px}
+  .about .facts .k{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft)}
+
+  /* ---- contact ---- */
+  .contact{border-top:1px solid var(--line)}
+  .contact h2{max-width:24ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:17px;
+    text-decoration:none;padding:14px 24px;border-radius:6px;display:inline-block}
+  .btn.pri{background:var(--ink);color:var(--paper)}
+  .btn.sec{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn:focus-visible,a:focus-visible{outline:3px solid var(--mark);outline-offset:3px}
+  .contact-plain{margin-top:22px;color:var(--ink-soft);font-family:"JetBrains Mono",monospace;
+    font-size:13px;line-height:1.7}
+  .contact-plain a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  /* ---- leak diagram ---- */
+  .leak{border-top:1px solid var(--line);background:
+    linear-gradient(0deg,rgba(216,56,43,.03),rgba(216,56,43,.03))}
+  .leak .cap{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+    color:var(--mark);margin:0 0 6px}
+  .leak h2{margin:0 0 10px}
+  .leak .lead{color:var(--ink-soft);max-width:56ch;margin:0 0 30px;font-size:17px}
+  .leak figure{margin:0}
+  .leak svg{display:block;width:100%;height:auto;max-width:760px}
+  .leak figcaption{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-soft);
+    margin:14px 0 0}
+
+  /* ---- contacts ---- */
+  .contacts{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:0;max-width:520px}
+  .contacts li{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:baseline;
+    padding:16px 0;border-top:1px solid var(--line)}
+  .contacts .k{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft)}
+  .contacts a{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:19px;
+    color:var(--ink);text-decoration:none;border-bottom:2px solid var(--mark);padding-bottom:2px}
+  .contacts a:hover{color:var(--mark)}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft);
+    font-family:"JetBrains Mono",monospace;font-size:12px}
+
+  .edit{background:var(--mark-soft);padding:0 3px;border-radius:2px}
+
+  @media (max-width:680px){
+    body{font-size:18px}
+    .svc{grid-template-columns:1fr;gap:8px}
+    .svc .no{padding:0}
+    .step{grid-template-columns:1fr;gap:6px}
+    .about .facts li{grid-template-columns:1fr;gap:2px}
+    .slots{grid-template-columns:1fr}
+    header{padding:48px 0 30px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span><b>Лариса Кучинская</b> — архитектор конверсии</span>
+  <span>Удалённо</span>
+  <span>Самозанятая в РФ</span>
+  <span>Работаю с РФ и РБ</span>
+</div></div>
+
+<header><div class="wrap">
+  <p class="role">UX-аудит · конверсия · структура сайта · SERM</p>
+  <h1>Нахожу, где сайт теряет заявки, и перестраиваю его под продажи.</h1>
+  <p class="lede">Красивый сайт и работающий сайт — разные вещи. Я разбираю сайт как систему: где рвётся логика, где клиент сомневается, где уходит <em>молча</em>.</p>
+
+  <div class="specimen" id="specimen">
+    <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
+    <p class="quote">Мы&nbsp;— <span class="u-circle">команда профессионалов<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path style="--len:340;--off:340" d="M4,50 C4,20 96,18 96,50 C96,82 4,84 4,50"/></svg></span> с&nbsp;<span class="u-strike" style="--sx:1">индивидуальным подходом</span> к&nbsp;каждому клиенту.</p>
+    <ul class="notes">
+      <li>«команда профессионалов» — <span>кто именно и чем это доказано? Пустое заявление.</span></li>
+      <li>«индивидуальный подход» — <span>штамп с любого сайта. Клиент его не читает.</span></li>
+      <li>итог: <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span></li>
+    </ul>
+  </div>
+</div></header>
+
+<section class="leak"><div class="wrap">
+  <p class="cap">то, что я нахожу в аудите</p>
+  <h2>Куда утекают 100 посетителей</h2>
+  <p class="lead">На типичном сайте до заявки доходит меньше пятой части пришедших. Остальные уходят молча — на конкретных шагах и по конкретным причинам. Вот как это выглядит.</p>
+  <figure>
+    <svg viewBox="0 0 760 330" role="img" aria-label="Диаграмма: как посетители теряются на пути к заявке">
+      <g font-family="'JetBrains Mono',monospace" font-size="13" fill="#565E64" text-anchor="end">
+        <text x="150" y="47">зашли с рекламы</text>
+        <text x="150" y="109">поняли оффер</text>
+        <text x="150" y="171">дочитали до сути</text>
+        <text x="150" y="233">поверили</text>
+        <text x="150" y="295">оставили заявку</text>
+      </g>
+      <g>
+        <rect x="170" y="30" width="520" height="26" rx="4" fill="#E4E8EA" stroke="#C6CCCE"/>
+        <rect x="170" y="30" width="520" height="26" rx="4" fill="#14171A"/>
+        <rect x="170" y="92" width="520" height="26" rx="4" fill="#E4E8EA" stroke="#C6CCCE"/>
+        <rect x="170" y="92" width="354" height="26" rx="4" fill="#14171A"/>
+        <rect x="170" y="154" width="520" height="26" rx="4" fill="#E4E8EA" stroke="#C6CCCE"/>
+        <rect x="170" y="154" width="218" height="26" rx="4" fill="#14171A"/>
+        <rect x="170" y="216" width="520" height="26" rx="4" fill="#E4E8EA" stroke="#C6CCCE"/>
+        <rect x="170" y="216" width="140" height="26" rx="4" fill="#14171A"/>
+        <rect x="170" y="278" width="520" height="26" rx="4" fill="#E4E8EA" stroke="#C6CCCE"/>
+        <rect x="170" y="278" width="99" height="26" rx="4" fill="#D8382B"/>
+      </g>
+      <g font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="20" text-anchor="end">
+        <text x="752" y="49" fill="#14171A">100</text>
+        <text x="752" y="111" fill="#14171A">68</text>
+        <text x="752" y="173" fill="#14171A">42</text>
+        <text x="752" y="235" fill="#14171A">27</text>
+        <text x="752" y="297" fill="#D8382B">19</text>
+      </g>
+      <g font-family="'JetBrains Mono',monospace" font-size="12" fill="#D8382B">
+        <text x="170" y="79">&#8627; &#8722;32 &#183; оффер не читается за 3 секунды</text>
+        <text x="170" y="141">&#8627; &#8722;26 &#183; перегруз, суть закопана вниз</text>
+        <text x="170" y="203">&#8627; &#8722;15 &#183; нет доказательств — не верят</text>
+        <text x="170" y="265">&#8627; &#8722;8 &#183; сложная форма, нет next step</text>
+      </g>
+    </svg>
+    <figcaption>Цифры иллюстративные — на вашем сайте картина считается в аудите.</figcaption>
+  </figure>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <p class="eyebrow">Услуги</p>
+  <h2>Что я делаю</h2>
+  <p class="sec-sub">Четыре направления. Можно взять точечный аудит, а можно — полную перестройку под заявки.</p>
+
+  <div class="svc">
+    <div class="no">01</div>
+    <div>
+      <h3>Аудит сайта: где вы теряете заявки</h3>
+      <p>Жёсткий, честный разбор сайта с фокусом на деньги, а не на цвета. Прохожу путь клиента, нахожу точки сомнения и «скрытые отказы», собираю список ошибок и точек роста — готовый к внедрению.</p>
+      <ul>
+        <li>Полный UX-аудит («прожарка»)</li>
+        <li>Анти-аудит лишних внедрений</li>
+        <li>Аудит теневого пути клиента</li>
+        <li>Смысловой рентген текстов</li>
+        <li>Первый экран (протокол захвата)</li>
+        <li>Прорыв баннерной слепоты</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="svc">
+    <div class="no">02</div>
+    <div>
+      <h3>Проектирование структуры под продажи</h3>
+      <p>Перестраиваю сайт как систему: логика страниц, последовательность блоков, сценарий, который ведёт клиента к заявке. Для интернет-магазинов — от каталога до карточки товара.</p>
+      <ul>
+        <li>Структура сайта услуг / B2B</li>
+        <li>Перестройка интернет-магазина</li>
+        <li>Логика блоков и пользовательский сценарий</li>
+        <li>Рекомендации по текстам и UX</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="svc">
+    <div class="no">03</div>
+    <div>
+      <h3>Репутация в поиске — SERM / ORM</h3>
+      <p>Перед запуском рекламы клиент гуглит вас. Если в топе — негатив, старые истории или пустота, он уходит к конкуренту. Проверяю выдачу, показываю, где утекают клиенты, и даю план по вытеснению негатива и укреплению доверия — без мифов.</p>
+      <ul>
+        <li>Аудит репутации в поиске</li>
+        <li>Проверка выдачи перед рекламой</li>
+        <li>Стратегия SERM + ORM</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="svc">
+    <div class="no">04</div>
+    <div>
+      <h3>Конкуренты и стратегия</h3>
+      <p>Разбираю 3–5 конкурентов: их воронки, офферы, слабые места — и собираю план, как перехватить их трафик и клиентов. Отдельно настраиваю «фильтр клиентов», чтобы приходили целевые и дорогие, а не те, кто выносит мозг и не платит.</p>
+      <ul>
+        <li>Анализ конкурентов и стратегия захвата</li>
+        <li>Настройка фильтра клиентов</li>
+        <li>Перевод оффера «с маркетингового на человеческий»</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="method"><div class="wrap">
+  <p class="eyebrow">Метод</p>
+  <h2>Как я работаю</h2>
+  <p class="sec-sub">Не «советы вообще», а разбор по шагам с конкретными выводами под внедрение.</p>
+  <div class="steps">
+    <div class="step"><div class="n"></div><div>
+      <h3>Прохожу путь клиента</h3>
+      <p>Смотрю на сайт глазами того, кто зашёл с рекламы: что он видит в первые 3 секунды, что понимает, где начинает сомневаться.</p>
+    </div></div>
+    <div class="step"><div class="n"></div><div>
+      <h3>Деконструирую смысл</h3>
+      <p>Выписываю все тезисы, обещания и утверждения в одну логическую цепочку и показываю, где она рвётся — где штампы вместо фактов.</p>
+    </div></div>
+    <div class="step"><div class="n"></div><div>
+      <h3>Нахожу точки потери</h3>
+      <p>Отмечаю места «скрытого отказа»: перегруз, лишние шаги, слабый оффер, баннерная слепота, недоверие из-за репутации.</p>
+    </div></div>
+    <div class="step"><div class="n"></div><div>
+      <h3>Собираю систему под внедрение</h3>
+      <p>Готовая структура, логика блоков, рекомендации по текстам и UX. Не абстракция — то, что можно взять и сделать.</p>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <p class="eyebrow">Кейсы</p>
+  <h2>Реальные работы</h2>
+  <p class="sec-sub">Аудиты, стратегии и концепции, которые я делала для бизнеса в разных нишах. Ниже — задача, что сделала и конкретные находки.</p>
+
+  <div class="case">
+    <div class="no">01</div>
+    <div>
+      <h3>Архитектурная студия LAD, Минск</h3>
+      <p class="meta">lad.by · комплексный аудит: сайт + два лендинга + Instagram</p>
+      <p class="lead">Сайт сделан визуально дорого, но слабо превращает трафик в заявки. <b>Прошла весь путь клиента</b> на сайте, лендингах дизайна и архитектуры и в Instagram; разобрала структуру по блокам, тексты, доверие и CTA; дала переписанный первый экран и план правок по приоритетам.</p>
+      <ul class="found">
+        <li>Счётчики доверия («Лет опыта 0+, Проектов 0+») отдаются в разметке нулями — при сбое анимации блок работает против доверия.</li>
+        <li>На странице про квартиры стоит текст, скопированный со страницы загородных домов, — читатель ловит это мгновенно.</li>
+        <li>Настоящее УТП («один договор, один руководитель, один бюджет») спрятано в середине страницы вместо первого экрана.</li>
+        <li>По Instagram — оценка по 8 критериям и переписанные обложки: из нейтральных подписей в цепляющие заголовки.</li>
+      </ul>
+      <span class="fmt">аудит-отчёт + приоритезированный план внедрения</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="no">02</div>
+    <div>
+      <h3>«Остов Про» — капсульное домостроение</h3>
+      <p class="meta">резидент Сколково · аудит продвижения + стратегия лидогенерации по РФ</p>
+      <p class="lead">Сильный продукт и патент, но продвижение фрагментарное и узнаваемость низкая. <b>Провела аудит всех сайтов и каналов</b>, разобрала воронку и сегменты (B2C и B2B) и собрала стратегию: каналы, микс performance + контент + партнёрства, целевые метрики и roadmap на 1–2, 3–6 месяцев и долгосрок.</p>
+      <ul class="found">
+        <li>Сайты рассказывают «о технологии», а не продают: нет калькулятора, квиза, видео сборки, слабые CTA.</li>
+        <li>Слабое социальное доказательство — 15 домов на масштаб «вся Россия».</li>
+        <li>План: объединить воронку на одном продающем сайте, собрать 5–7 кейсов, запустить Директ и соцсети с фокусом на CPL, упаковать под семейную ипотеку.</li>
+      </ul>
+      <span class="fmt">стратегический документ</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="no">03</div>
+    <div>
+      <h3>Частная клиника неврологии, Тюмень</h3>
+      <p class="meta">исследование перед запуском · рыночная и конкурентная аналитика</p>
+      <p class="lead">Оценить потенциал и позиционирование до открытия. <b>Проанализировала рынок</b> (население, рост платной медицины, цены приёма), конкурентов, спрос, ЦА и путь пациента, заложила каркас CAC / LTV / ROMI, SWOT и юридические ограничения рекламы.</p>
+      <ul class="found">
+        <li>Вывод: не выходить «ещё одной универсальной неврологией», а строиться вокруг конкретной проблемы пациента — лечение боли, позвоночник, мигрени — с комплексным маршрутом.</li>
+        <li>Локальность района предложена как самостоятельное конкурентное преимущество.</li>
+        <li>Честно обозначены границы данных: что нельзя получить из открытых источников и что нужно уточнить перед финансовой моделью.</li>
+      </ul>
+      <span class="fmt">аналитический отчёт со стратегической рекомендацией</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="no">04</div>
+    <div>
+      <h3>Сухой костный бульон с коллагеном</h3>
+      <p class="meta">FMCG · концепция продающей упаковки и позиционирования</p>
+      <p class="lead">Превратить продукт в продающую упаковку для полки и маркетплейса. <b>Собрала концепцию целиком</b>: ЦА, позиционирование, УТП, триггеры покупки, тексты лицевой и оборотной стороны, структуру упаковки и рекомендации по дизайну.</p>
+      <ul class="found">
+        <li>Позиционирование: «ежедневный ритуал красоты и здоровья в чашке — натуральный, как у бабушки, но без 12 часов у плиты».</li>
+        <li>Продающие заголовки и блоки пользы, собранные под мотивы основной ЦА.</li>
+        <li>Готовые тексты и структура — можно отдавать дизайнеру в работу.</li>
+      </ul>
+      <span class="fmt">концепция + готовые тексты под дизайн</span>
+    </div>
+  </div>
+
+  <div class="also">
+    <p class="h">Ещё в портфолио</p>
+    <ul>
+      <li><b>DreamNuts.ru</b> — аудит food-ecommerce: нет оффера и доверия, «безликий товар». Предложена структура выбора «для чего вам орехи» и путь от интереса к покупке.</li>
+      <li><b>«Полезнямки»</b> — маркетинговая стратегия VK + CRM для бренда полезных сладостей: воронка, система офферов, продукт входа, ROMI/KPI и roadmap на 12 месяцев.</li>
+      <li><b>Сеть доставки суши и пиццы, Мурманск</b> — операционный маркетинг-шаблон на 4 бренда: стратегия, ТЗ по стилю и соцсетям, контент-календарь, KPI — под перенос в Битрикс24.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="about" class="about"><div class="wrap">
+  <p class="eyebrow">Обо мне</p>
+  <h2>Коротко и по делу</h2>
+  <p>Меня зовут Лариса Кучинская, я архитектор конверсии. Разбираю, где бизнес теряет заявки, и перестраиваю сайт под продажи — а когда нужно шире, беру рынок, конкурентов, позиционирование и стратегию продвижения. Работаю честно: без «воды», обещаний волшебного роста и маркетинговых мифов. Если аудит не нужен — так и говорю.</p>
+  <ul class="facts">
+    <li><span class="k">формат</span><span>Только удалённо. Проекты и постоянное сотрудничество.</span></li>
+    <li><span class="k">статус</span><span>Самозанятая в РФ — работаю официально, выдаю чеки.</span></li>
+    <li><span class="k">гео</span><span>Живу в Беларуси, работаю с клиентами из РФ и РБ.</span></li>
+    <li><span class="k">специализация</span><span>Аудит и проектирование сайтов · рыночная и конкурентная аналитика · позиционирование и упаковка · стратегия продвижения и лидогенерации · SERM/ORM.</span></li>
+  </ul>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <p class="eyebrow">Связаться</p>
+  <h2>Пришлите ссылку на сайт — скажу, есть ли смысл в аудите.</h2>
+  <p class="sec-sub">Посмотрю бесплатно и честно отвечу, где вы теряете заявки и стоит ли что-то менять.</p>
+  <ul class="contacts">
+    <li><span class="k">Telegram</span><a href="https://t.me/Vasilisiy" target="_blank" rel="noopener">@Vasilisiy</a></li>
+    <li><span class="k">Почта</span><a href="mailto:vasilisiy.v@gmail.com">vasilisiy.v@gmail.com</a></li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">
+  <span>© <span id="yr"></span> Лариса Кучинская — архитектор конверсии сайтов</span>
+</div></footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // one orchestrated reveal for the hero specimen
+  var sp = document.getElementById('specimen');
+  if (sp) {
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      var io = new IntersectionObserver(function(en){
+        en.forEach(function(e){ if(e.isIntersecting){ sp.classList.add('revealed'); io.disconnect(); }});
+      }, {threshold:.4});
+      io.observe(sp);
+    } else {
+      sp.classList.add('revealed');
+    }
+  }
+</script>
+</body>
+</html>
