@@ -61,14 +61,36 @@
     letter-spacing:.08em;color:var(--ink-soft);margin:0 0 20px;text-transform:none}
   .specimen .quote{font-size:clamp(21px,3vw,29px);line-height:1.45;font-weight:400;
     font-family:"Newsreader",serif}
-  .strikethrough{position:relative;white-space:nowrap}
-  .strikethrough::after{content:"";position:absolute;left:0;right:0;top:52%;height:2.5px;
-    background:var(--mark);transform:scaleX(1);border-radius:2px}
+  .u-strike{position:relative;white-space:nowrap}
+  .u-strike::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;
+    background:var(--mark);transform:scaleX(var(--sx,1));transform-origin:left;border-radius:2px}
+  .u-circle{position:relative;padding:0 3px}
+  .u-circle svg{position:absolute;left:-8px;top:-8px;width:calc(100% + 16px);height:calc(100% + 16px);
+    overflow:visible;pointer-events:none}
+  .u-circle svg path{fill:none;stroke:var(--mark);stroke-width:2.2;stroke-linecap:round;
+    stroke-dasharray:var(--len,320);stroke-dashoffset:var(--off,0)}
   .notes{list-style:none;margin:26px 0 0;padding:22px 0 0;border-top:1px dashed var(--line)}
   .notes li{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.5;
-    color:var(--mark);margin:0 0 12px;padding-left:20px;position:relative}
+    color:var(--mark);margin:0 0 10px;padding-left:20px;position:relative}
   .notes li::before{content:"↳";position:absolute;left:0;color:var(--mark)}
   .notes li span{color:var(--ink-soft)}
+
+  /* reveal animation — чистый CSS, без зависимости от JS/IntersectionObserver,
+     поэтому блок гарантированно отрисовывается и на GitHub Pages */
+  .u-strike::after{transform:scaleX(1)}
+  .u-circle svg path{stroke-dashoffset:0}
+  .notes li{opacity:1;transform:none}
+  @media (prefers-reduced-motion:no-preference){
+    .u-strike::after{animation:strikeReveal .6s ease .5s both}
+    .u-circle svg path{animation:circleReveal .9s ease .9s both}
+    .notes li{animation:noteReveal .5s ease both}
+    .notes li:nth-child(1){animation-delay:1.0s}
+    .notes li:nth-child(2){animation-delay:1.2s}
+    .notes li:nth-child(3){animation-delay:1.4s}
+  }
+  @keyframes strikeReveal{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes circleReveal{from{stroke-dashoffset:var(--len,320)}to{stroke-dashoffset:0}}
+  @keyframes noteReveal{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
   /* ---- section frame ---- */
   section{padding:64px 0;border-top:1px solid var(--line)}
@@ -214,26 +236,13 @@
   <h1>Нахожу, где сайт теряет заявки, и перестраиваю его под продажи.</h1>
   <p class="lede">Красивый сайт и работающий сайт — разные вещи. Я разбираю сайт как систему: где рвётся логика, где клиент сомневается, где уходит <em>молча</em>.</p>
 
-  <!-- НОВЫЙ БЛОК — полностью отрисованный пример -->
-  <div class="specimen">
+  <div class="specimen" id="specimen">
     <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
-    <div class="quote">
-      Мы — команда профессионалов<br>
-      <span class="strikethrough">с индивидуальным подходом к каждому клиенту.</span>
-    </div>
+    <p class="quote">Мы&nbsp;— <span class="u-circle">команда профессионалов<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path style="--len:340;--off:340" d="M4,50 C4,20 96,18 96,50 C96,82 4,84 4,50"/></svg></span> с&nbsp;<span class="u-strike" style="--sx:1">индивидуальным подходом</span> к&nbsp;каждому клиенту.</p>
     <ul class="notes">
-      <li>
-        «команда профессионалов» — 
-        <span>кто именно и чем это доказано? Пустое заявление.</span>
-      </li>
-      <li>
-        «индивидуальный подход» — 
-        <span>штамп с любого сайта. Клиент его не читает.</span>
-      </li>
-      <li>
-        итог: 
-        <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span>
-      </li>
+      <li>«команда профессионалов» — <span>кто именно и чем это доказано? Пустое заявление.</span></li>
+      <li>«индивидуальный подход» — <span>штамп с любого сайта. Клиент его не читает.</span></li>
+      <li>итог: <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span></li>
     </ul>
   </div>
 </div></header>
@@ -271,10 +280,10 @@
         <text x="752" y="297" fill="#D8382B">19</text>
       </g>
       <g font-family="'JetBrains Mono',monospace" font-size="12" fill="#D8382B">
-        <text x="170" y="79">&#8627; &#8727;32 &#183; оффер не читается за 3 секунды</text>
-        <text x="170" y="141">&#8627; &#8727;26 &#183; перегруз, суть закопана вниз</text>
-        <text x="170" y="203">&#8627; &#8727;15 &#183; нет доказательств — не верят</text>
-        <text x="170" y="265">&#8627; &#8727;8 &#183; сложная форма, нет next step</text>
+        <text x="170" y="79">&#8627; &#8722;32 &#183; оффер не читается за 3 секунды</text>
+        <text x="170" y="141">&#8627; &#8722;26 &#183; перегруз, суть закопана вниз</text>
+        <text x="170" y="203">&#8627; &#8722;15 &#183; нет доказательств — не верят</text>
+        <text x="170" y="265">&#8627; &#8722;8 &#183; сложная форма, нет next step</text>
       </g>
     </svg>
     <figcaption>Цифры иллюстративные — на вашем сайте картина считается в аудите.</figcaption>
@@ -354,7 +363,7 @@
     </div></div>
     <div class="step"><div class="n"></div><div>
       <h3>Деконструирую смысл</h3>
-      <p>Выписываю все тезисы, обещания и утверждения в одна логическая цепочка и показываю, где она рвётся — где штампы вместо фактов.</p>
+      <p>Выписываю все тезисы, обещания и утверждения в одну логическую цепочку и показываю, где она рвётся — где штампы вместо фактов.</p>
     </div></div>
     <div class="step"><div class="n"></div><div>
       <h3>Нахожу точки потери</h3>
