@@ -232,22 +232,119 @@
   <h1>Нахожу, где сайт теряет заявки, и перестраиваю его под продажи.</h1>
   <p class="lede">Красивый сайт и работающий сайт — разные вещи. Я разбираю сайт как систему: где рвётся логика, где клиент сомневается, где уходит <em>молча</em>.</p>
 
- <section class="specimen-image">
-  <div class="wrap">
-    <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
-    
-    <img 
-      src="/img/Снимок.JPG" 
-      alt="Пример, как я читаю сайт. Мы — команда профессионалов с индивидуальным подходом к каждому клиенту. Ключевые слова подчеркнуты красным."
-      loading="lazy"
-    >
-    
-    <p class="specimen-caption">
-      Вот как выглядит результат, когда в строке есть пустые заявления вместо фактов. 
-      При аудите я показываю клиентам именно такие зачёркнутые фрагменты и объясняю, почему они убивают доверие.
+ <div class="specimen">
+  <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
+  
+  <div class="quote-container">
+    <p class="quote">
+      Мы&nbsp;— <span class="u-circle">команда профессионалов<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path style="--len:340;--off:340" d="M4,50 C4,20 96,18 96,50 C96,82 4,84 4,50"/>
+      </svg></span> с&nbsp;<span class="u-strike" style="--sx:1">индивидуальным подходом</span> к&nbsp;каждому клиенту.
     </p>
   </div>
-</section>
+  
+  <ul class="notes">
+    <li>
+      «<b>команда профессионалов</b>» — 
+      <span>кто именно и чем это доказано? Пустое заявление.</span>
+    </li>
+    <li>
+      «<b>индивидуальный подход</b>» — 
+      <span>штамп с любого сайта. Клиент его не читает.</span>
+    </li>
+    <li>
+      <b>итог:</b> 
+      <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span>
+    </li>
+  </ul>
+</div>
+
+<style>
+/* Стили для перерисованного примера */
+.quote-container {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 34px 30px 30px;
+  margin: 26px 0;
+  border-radius: 8px;
+  position: relative;
+}
+
+.quote {
+  font-size: clamp(21px, 3vw, 29px);
+  line-height: 1.45;
+  font-family: "Newsreader", serif;
+  font-weight: 400;
+}
+
+.quote span {
+  position: relative;
+}
+
+.u-strike::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 2.5px;
+  background: var(--mark);
+  transform: scaleX(1);
+  border-radius: 2px;
+}
+
+.u-circle svg {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.u-circle svg path {
+  fill: none;
+  stroke: var(--mark);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len, 340);
+  stroke-dashoffset: var(--off, 340);
+  transition: stroke-dashoffset 0.8s ease 0.5s;
+}
+
+.revealed .u-circle svg path {
+  stroke-dashoffset: 0;
+}
+
+.notes {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px dashed var(--line);
+}
+
+.notes li {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mark);
+  margin: 0 0 12px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.notes li::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  color: var(--mark);
+}
+
+.notes li span {
+  color: var(--ink-soft);
+}
+</style>
 </div></header>
 
 <section class="leak"><div class="wrap">
