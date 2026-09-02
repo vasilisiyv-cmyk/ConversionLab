@@ -235,29 +235,89 @@
  <div class="specimen">
   <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
   
-  <div class="quote-container">
-    <p class="quote">
-      Мы&nbsp;— <span class="u-circle">команда профессионалов<svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path style="--len:340;--off:340" d="M4,50 C4,20 96,18 96,50 C96,82 4,84 4,50"/>
-      </svg></span> с&nbsp;<span class="u-strike" style="--sx:1">индивидуальным подходом</span> к&nbsp;каждому клиенту.
-    </p>
+  <div class="example">
+    Мы — команда профессионалов<br>
+    <span class="strikethrough">с индивидуальным подходом к каждому клиенту.</span>
   </div>
   
   <ul class="notes">
     <li>
-      «<b>команда профессионалов</b>» — 
+      <strong>«команда профессионалов»</strong> — 
       <span>кто именно и чем это доказано? Пустое заявление.</span>
     </li>
     <li>
-      «<b>индивидуальный подход</b>» — 
+      <strong>«индивидуальный подход»</strong> — 
       <span>штамп с любого сайта. Клиент его не читает.</span>
     </li>
     <li>
-      <b>итог:</b> 
+      <strong>итог:</strong> 
       <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span>
     </li>
   </ul>
 </div>
+
+<style>
+/* ==================== СТИЛИ ==================== */
+.example {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 34px 30px 30px;
+  margin: 26px 0 0;
+  border-radius: 8px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(21px, 3vw, 29px);
+  line-height: 1.45;
+  max-width: 720px;
+  position: relative;
+  color: var(--ink);
+}
+
+.strikethrough {
+  position: relative;
+  display: inline;
+  color: var(--ink);
+}
+
+.strikethrough::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 2.5px;
+  background: var(--mark);
+  transform: scaleX(1);
+  border-radius: 2px;
+}
+
+.notes {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px dashed var(--line);
+}
+
+.notes li {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mark);
+  margin: 0 0 12px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.notes li::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  color: var(--mark);
+}
+
+.notes li span {
+  color: var(--ink-soft);
+}
+</style>
 
 <style>
 /* Стили для перерисованного примера */
