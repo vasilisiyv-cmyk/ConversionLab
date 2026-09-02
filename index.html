@@ -61,32 +61,14 @@
     letter-spacing:.08em;color:var(--ink-soft);margin:0 0 20px;text-transform:none}
   .specimen .quote{font-size:clamp(21px,3vw,29px);line-height:1.45;font-weight:400;
     font-family:"Newsreader",serif}
-  .u-strike{position:relative;white-space:nowrap}
-  .u-strike::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;
-    background:var(--mark);transform:scaleX(var(--sx,1));transform-origin:left;border-radius:2px}
-  .u-circle{position:relative;padding:0 3px}
-  .u-circle svg{position:absolute;left:-8px;top:-8px;width:calc(100% + 16px);height:calc(100% + 16px);
-    overflow:visible;pointer-events:none}
-  .u-circle svg path{fill:none;stroke:var(--mark);stroke-width:2.2;stroke-linecap:round;
-    stroke-dasharray:var(--len,320);stroke-dashoffset:var(--off,0)}
+  .strikethrough{position:relative;white-space:nowrap}
+  .strikethrough::after{content:"";position:absolute;left:0;right:0;top:52%;height:2.5px;
+    background:var(--mark);transform:scaleX(1);border-radius:2px}
   .notes{list-style:none;margin:26px 0 0;padding:22px 0 0;border-top:1px dashed var(--line)}
   .notes li{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.5;
-    color:var(--mark);margin:0 0 10px;padding-left:20px;position:relative}
+    color:var(--mark);margin:0 0 12px;padding-left:20px;position:relative}
   .notes li::before{content:"↳";position:absolute;left:0;color:var(--mark)}
   .notes li span{color:var(--ink-soft)}
-
-  /* reveal animation (one moment, reduced-motion safe) */
-  @media (prefers-reduced-motion:no-preference){
-    .u-strike::after{transform:scaleX(0);transition:transform .6s ease .5s}
-    .u-circle svg path{stroke-dashoffset:var(--len,320);transition:stroke-dashoffset .9s ease .9s}
-    .notes li{opacity:0;transform:translateY(4px);transition:opacity .5s ease,transform .5s ease}
-    .revealed .u-strike::after{transform:scaleX(1)}
-    .revealed .u-circle svg path{stroke-dashoffset:0}
-    .revealed .notes li{opacity:1;transform:none}
-    .revealed .notes li:nth-child(2){transition-delay:1.2s}
-    .revealed .notes li:nth-child(3){transition-delay:1.4s}
-    .revealed .notes li:nth-child(1){transition-delay:1.0s}
-  }
 
   /* ---- section frame ---- */
   section{padding:64px 0;border-top:1px solid var(--line)}
@@ -232,179 +214,28 @@
   <h1>Нахожу, где сайт теряет заявки, и перестраиваю его под продажи.</h1>
   <p class="lede">Красивый сайт и работающий сайт — разные вещи. Я разбираю сайт как систему: где рвётся логика, где клиент сомневается, где уходит <em>молча</em>.</p>
 
- <div class="specimen">
-  <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
-  
-  <div class="example">
-    Мы — команда профессионалов<br>
-    <span class="strikethrough">с индивидуальным подходом к каждому клиенту.</span>
+  <!-- НОВЫЙ БЛОК — полностью отрисованный пример -->
+  <div class="specimen">
+    <p class="cap">Как я читаю сайт — на примере одной строки с типичного лендинга:</p>
+    <div class="quote">
+      Мы — команда профессионалов<br>
+      <span class="strikethrough">с индивидуальным подходом к каждому клиенту.</span>
+    </div>
+    <ul class="notes">
+      <li>
+        «команда профессионалов» — 
+        <span>кто именно и чем это доказано? Пустое заявление.</span>
+      </li>
+      <li>
+        «индивидуальный подход» — 
+        <span>штамп с любого сайта. Клиент его не читает.</span>
+      </li>
+      <li>
+        итог: 
+        <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span>
+      </li>
+    </ul>
   </div>
-  
-  <ul class="notes">
-    <li>
-      <strong>«команда профессионалов»</strong> — 
-      <span>кто именно и чем это доказано? Пустое заявление.</span>
-    </li>
-    <li>
-      <strong>«индивидуальный подход»</strong> — 
-      <span>штамп с любого сайта. Клиент его не читает.</span>
-    </li>
-    <li>
-      <strong>итог:</strong> 
-      <span>0 фактов, 0 конкретики. Посетитель так и не понял, что вы продаёте и почему вам.</span>
-    </li>
-  </ul>
-</div>
-
-<style>
-/* ==================== СТИЛИ ==================== */
-.example {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  padding: 34px 30px 30px;
-  margin: 26px 0 0;
-  border-radius: 8px;
-  font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(21px, 3vw, 29px);
-  line-height: 1.45;
-  max-width: 720px;
-  position: relative;
-  color: var(--ink);
-}
-
-.strikethrough {
-  position: relative;
-  display: inline;
-  color: var(--ink);
-}
-
-.strikethrough::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 52%;
-  height: 2.5px;
-  background: var(--mark);
-  transform: scaleX(1);
-  border-radius: 2px;
-}
-
-.notes {
-  list-style: none;
-  margin: 26px 0 0;
-  padding: 22px 0 0;
-  border-top: 1px dashed var(--line);
-}
-
-.notes li {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--mark);
-  margin: 0 0 12px;
-  padding-left: 20px;
-  position: relative;
-}
-
-.notes li::before {
-  content: "↳";
-  position: absolute;
-  left: 0;
-  color: var(--mark);
-}
-
-.notes li span {
-  color: var(--ink-soft);
-}
-</style>
-
-<style>
-/* Стили для перерисованного примера */
-.quote-container {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  padding: 34px 30px 30px;
-  margin: 26px 0;
-  border-radius: 8px;
-  position: relative;
-}
-
-.quote {
-  font-size: clamp(21px, 3vw, 29px);
-  line-height: 1.45;
-  font-family: "Newsreader", serif;
-  font-weight: 400;
-}
-
-.quote span {
-  position: relative;
-}
-
-.u-strike::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 52%;
-  height: 2.5px;
-  background: var(--mark);
-  transform: scaleX(1);
-  border-radius: 2px;
-}
-
-.u-circle svg {
-  position: absolute;
-  left: -8px;
-  top: -8px;
-  width: calc(100% + 16px);
-  height: calc(100% + 16px);
-  overflow: visible;
-  pointer-events: none;
-}
-
-.u-circle svg path {
-  fill: none;
-  stroke: var(--mark);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-dasharray: var(--len, 340);
-  stroke-dashoffset: var(--off, 340);
-  transition: stroke-dashoffset 0.8s ease 0.5s;
-}
-
-.revealed .u-circle svg path {
-  stroke-dashoffset: 0;
-}
-
-.notes {
-  list-style: none;
-  margin: 26px 0 0;
-  padding: 22px 0 0;
-  border-top: 1px dashed var(--line);
-}
-
-.notes li {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--mark);
-  margin: 0 0 12px;
-  padding-left: 20px;
-  position: relative;
-}
-
-.notes li::before {
-  content: "↳";
-  position: absolute;
-  left: 0;
-  color: var(--mark);
-}
-
-.notes li span {
-  color: var(--ink-soft);
-}
-</style>
 </div></header>
 
 <section class="leak"><div class="wrap">
@@ -523,7 +354,7 @@
     </div></div>
     <div class="step"><div class="n"></div><div>
       <h3>Деконструирую смысл</h3>
-      <p>Выписываю все тезисы, обещания и утверждения в одну логическую цепочку и показываю, где она рвётся — где штампы вместо фактов.</p>
+      <p>Выписываю все тезисы, обещания и утверждения в одна логическая цепочка и показываю, где она рвётся — где штампы вместо фактов.</p>
     </div></div>
     <div class="step"><div class="n"></div><div>
       <h3>Нахожу точки потери</h3>
@@ -607,7 +438,7 @@
     <ul>
       <li><b>DreamNuts.ru</b> — аудит food-ecommerce: нет оффера и доверия, «безликий товар». Предложена структура выбора «для чего вам орехи» и путь от интереса к покупке.</li>
       <li><b>«Полезнямки»</b> — маркетинговая стратегия VK + CRM для бренда полезных сладостей: воронка, система офферов, продукт входа, ROMI/KPI и roadmap на 12 месяцев.</li>
-      <li>Сеть доставки суши и пиццы, Мурманск — операционный маркетинг-шаблон на 4 бренда: стратегия, ТЗ по стилю и соцсетям, контент-календарь, KPI — под перенос в Битрикс24.</li>
+      <li><b>Сеть доставки суши и пиццы, Мурманск</b> — операционный маркетинг-шаблон на 4 бренда: стратегия, ТЗ по стилю и соцсетям, контент-календарь, KPI — под перенос в Битрикс24.</li>
     </ul>
   </div>
 </div></section>
@@ -640,19 +471,6 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // one orchestrated reveal for the hero specimen
-  var sp = document.getElementById('specimen');
-  if (sp) {
-    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches()) {
-      var io = new IntersectionObserver(function(en){
-        en.forEach(function(e){ if(e.isIntersecting){ sp.classList.add('revealed'); io.disconnect(); }});
-      }, {threshold:.4});
-      io.observe(sp);
-    } else {
-      sp.classList.add('revealed');
-    }
-  }
 </script>
 </body>
 </html>
